@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>
+		<meta charset="utf-8">
+		<title>div+ajax</title>
+		<link rel="stylesheet" type="text/css" href="div.css">
+		<script type="text/javascript">
+		window.onload = function(){
+			var newdiv = document.createElement("div");
+			newdiv.className = "newdiv";
+			newdiv.id = "newdiv"
+			var element = document.getElementById("olddiv");
+			element.appendChild(newdiv);
+			var h = document.getElementById("h")
+
+			var a = 1;
+			var change = function(i){
+				a = a * i;
+				if (a==-1) {newdiv.style.backgroundColor = 'blue';
+							newdiv.style.left = '500px'}
+				else{newdiv.style.backgroundColor = 'red'
+					newdiv.style.left = '0'}
+				console.log(a);
+				console.log(newdiv.style.textcss);
+			}
+			newdiv.onclick = function(){
+				change(-1);
+			}
+			//移动div部分
+			h.onclick = function(){		
+			var xhr = new XMLHttpRequest();
+			xhr.open("GET","http://123.207.89.151/jrtt/forecast",true);
+			xhr.send();
+
+			xhr.onreadystatechange=function(){
+  				if (xhr.readyState==4 && xhr.status==200){
+  					var txt = JSON.parse(xhr.responseText).明天;
+					console.log(xhr.responseText);
+					console.log(txt);
+    				document.getElementById("newdiv").innerHTML=
+    				 '天气'+':'+txt.天气+'<br>'
+    				+'最低温'+':'+txt.最低温+'<br>'
+    				+'最高温'+':'+txt.最高温+'<br>'
+    				+'空气质量'+':'+txt.空气质量+'<br>'
+    				+'风速'+':'+txt.风速+'<br>';
+    			}
+  			}
+			}
+		}
+		</script>
+</head>
+<body>
+	<div id="olddiv">
+	</div>
+	<button id="h">天气请求</button>
+</body>
+</html>

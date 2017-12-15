@@ -1,0 +1,15 @@
+*{
+	margin: 0;
+	padding: 0;
+}
+.newdiv{
+	position: relative;	
+	width:200px;
+	height:200px;
+	background:red;
+	left: 0;
+	transition: left 2s;
+	-moz-transition: left 2s;
+	-webkit-transition: left 2s;
+	z-index: 0;
+}
